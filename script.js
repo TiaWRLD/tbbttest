@@ -3,7 +3,7 @@ const blocchi = [
         colore: "#fce4ec",
         testo: "#5d4037",
         domande: [
-            'Potendo scegliere una persona qualunque nel mondo, chi ti piacerebbe invitare a cena?',
+            'Potendo scegliere una persona qualunque nel mondo, chi ti piacerebbe invitare a cena? (valgono anche personaggi storici)',
             'Che cosa faresti nella tua giornata perfetta?',
             'Se domani potessi svegliarti con una nuova qualità o abilità a tua scelta, quale sceglieresti?',
             'Se avessi la possibilità di sapere una verità sulla tua vita, il futuro o su qualsiasi altra cosa, cosa vorresti sapere?',
@@ -17,7 +17,7 @@ const blocchi = [
             'Cosa apprezzi di più in un\'amicizia o in una persona che entra a far parte della tua vita?',
             'Qual è il ricordo più bello che hai conservato finora?',
             'C\'è qualcosa che vorresti fare da molto tempo ma che non hai ancora avuto il coraggio di fare?',
-            'Qual è l\'elemento della tua vita per il quale ti senti più grata oggi?',
+            'Qual è l\'elemento della tua vita per il quale ti senti più grato\/a oggi?',
         ],
         log: ['Elaboro le risposte...', 'Abbiamo rotto il ghiaccio..', 'Livello 2 pronto.'],
 
@@ -27,8 +27,8 @@ const blocchi = [
         testo: "#f3e5f5",
         domande: [
             'Dimmi 3 cose che hai capito di avere in comune con me in questo poco tempo.',
-            'Casa tua sta andando a fuoco, hai tempo per un solo oggetto: cosa prenderesti?',
-            'Se il nostro livello dovesse passare ad un livello successivo, cosa dovrei sapere di te?',
+            'Casa tua sta andando a fuoco, hai tempo per prendere un solo oggetto: cosa prenderesti?',
+            'Se il nostro rapporto dovesse passare ad un livello successivo, cosa dovrei sapere di te?',
             'Dimmi qualcosa che ti piace particolarmente di me',
         ],
         log: ['Andiamo più in profondità...', 'Sintonizzazione in corso...', 'Livello 3 pronto.'],
@@ -124,6 +124,10 @@ function startTimer4minutes() {
 function startCountdown() {
     document.getElementById('btnStart').style.display = 'none';
     let tempo = 240;
+
+    // 1. Inizializza il file audio
+    const audioAlert = new Audio('sound.mp3');
+
     const interval = setInterval(() => {
         tempo--;
         let min = Math.floor(tempo / 60);
@@ -132,6 +136,10 @@ function startCountdown() {
 
         if (tempo <= 0) {
             clearInterval(interval);
+
+            // 2. Riproduci il suono alla fine del timer
+            audioAlert.play().catch(e => console.log("Errore riproduzione audio:", e));
+
             document.getElementById('app-container').innerHTML = `
                 <div class="log-container">
                     <p>> Ultima prova completata </p>
