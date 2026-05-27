@@ -82,7 +82,7 @@ function lanciaCaricamento() {
         <div class="log-container">
             <div id="log-box"></div>
             <div class="progress-container" style="width:100%; height:8px; background:rgba(0,0,0,0.1); border-radius:10px; margin-top:20px; overflow:hidden;">
-                <div id="bar" style="height:100%; width:0%; background:var(--text-color); transition: width linear;"></div>
+                <div id="bar" style="height:100%; width:0; background:var(--text-color); transition: width linear;"></div>
             </div>
         </div>
     `;
@@ -126,7 +126,6 @@ function startCountdown() {
     document.getElementById('btnStart').style.display = 'none';
     let tempo = 240; // 4 minuti (240 secondi)
 
-    // 1. Inizializza il file audio (assicurati che sound.mp3 sia nella stessa cartella del JS)
     const audioAlert = new Audio('sound.mp3');
 
     const interval = setInterval(() => {
