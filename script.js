@@ -37,9 +37,10 @@ const blocchi = [
         colore: "#390b70",
         testo: "#f8f0fa",
         domande: [
-            'Se dovessi morire oggi senza poter parlare con nessuno, cosa rimpiangeresti di non aver mai detto?'
+            'Se dovessi morire oggi senza poter parlare con nessuno, cosa rimpiangeresti di non aver mai detto?',
+            'Hai la possi'
         ],
-        log: ['Manca un\'ultima domanda prima della prova finale', 'Connessione in corso...', 'Caricamento domanda finale'],
+        log: ['Mancano altre due domande prima della prova finale', 'Connessione in corso...', 'Caricamento domande finali'],
         //log: ['E adesso è il momento dell\'ultima prova...', 'il momento del silenzio'],
     }
 ];
@@ -52,8 +53,8 @@ function mostraDomanda() {
     const blocco = blocchi[bloccoCorrente];
     if (domandaCorrente < blocco.domande.length) {
         container.innerHTML = `
-            <h2 style="font-size: 0.8rem; opacity: 0.7;">Livello ${bloccoCorrente + 1}</h2>
-            <p style="font-size: 1.5rem; padding: 0 20px;">${blocco.domande[domandaCorrente]}</p>
+            <h2 style="font-size: 1.5rem; opacity: 0.7;">Livello ${bloccoCorrente + 1}</h2>
+            <p style="font-size: 2.5rem; padding: 0 20px;">${blocco.domande[domandaCorrente]}</p>
             <button onclick="prossimaDomanda()">Proseguiamo</button>
         `;
     } else {
@@ -97,7 +98,7 @@ function lanciaCaricamento() {
     const tempoPerOgniLog = durataCaricamento / nuovoBlocco.log.length;
     nuovoBlocco.log.forEach((testo, i) => {
         setTimeout(() => {
-            logBox.innerHTML += `<p style="font-family:monospace; font-size:0.9rem; margin:5px 0;">> ${testo}</p>`;
+            logBox.innerHTML += `<p style="font-family:monospace; font-size:1.2rem; margin:5px 0;">> ${testo}</p>`;
         }, i * tempoPerOgniLog);
     });
 
@@ -116,16 +117,16 @@ function startTimer4minutes() {
     container.innerHTML = `
         <h1>L'ultima prova</h1>
         <p>Guardatevi negli occhi in silenzio per 4 minuti</p>
-        <div id="timer" style="font-size: 4rem; margin: 20px 0;">04:00</div>
+        <div id="timer" style="font-size: 4.5rem; margin: 20px 0;">04:00</div>
         <button id="btnStart" onclick="startCountdown()">Inizia</button>
     `;
 }
 
 function startCountdown() {
     document.getElementById('btnStart').style.display = 'none';
-    let tempo = 240;
+    let tempo = 240; // 4 minuti (240 secondi)
 
-    // 1. Inizializza il file audio
+    // 1. Inizializza il file audio (assicurati che sound.mp3 sia nella stessa cartella del JS)
     const audioAlert = new Audio('sound.mp3');
 
     const interval = setInterval(() => {
@@ -137,18 +138,41 @@ function startCountdown() {
         if (tempo <= 0) {
             clearInterval(interval);
 
-            // 2. Riproduci il suono alla fine del timer
+            // 2. Riproduci il suono di notifica alla fine dei 4 minuti
             audioAlert.play().catch(e => console.log("Errore riproduzione audio:", e));
 
+            // 3. Mostra la domanda finale sul patto d'onestà (Opzione 2)
             document.getElementById('app-container').innerHTML = `
-                <div class="log-container">
-                    <p>> Ultima prova completata </p>
-                    <p>> Si dice che questo test faccia innamorare le persone.</p>
-                    <p>> Quindi ora che siamo innamorati che si fa? ❤️</p>
+                <div class="log-container" style="text-align: left; max-width: 600px; margin: 0 auto; padding: 20px;">
+                    <p style="font-family:monospace; color:var(--text-color); opacity:0.7; margin-bottom:15px;">> [SYSTEM]: Timer scaduto.</p>
+                    <p style="font-family:monospace; color:var(--text-color); opacity:0.7; margin-bottom:25px;">> [SYSTEM]: Inizializzazione fase conclusiva...</p>
+                    
+                    <h2 style="font-size: 2rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;">
+                        Livello finale
+                    </h2>
+                    
+                    <p style="font-size: 2.5rem; line-height: 1.6; margin-bottom: 30px;">
+                        Avete diritto a una domanda a testa, a scelta libera. <br>
+                        La sola regola rimasta è l'onestà al 100%. <br><br>
+                        <strong>Chi inizia?</strong>
+                    </p>
+                    
+                    <button onclick="mostraSchermataFinale()">Fine dell'esperimento</button>
                 </div>
             `;
         }
     }, 1000);
+}
+
+
+function mostraSchermataFinale() {
+    document.getElementById('app-container').innerHTML = `
+        <div class="log-container">
+            <p>> Ultima prova completata </p>
+            <p>> Si dice che questo test faccia innamorare le persone.</p>
+            <p>> Quindi ora che siamo innamorati che si fa? ❤️</p>
+        </div>
+    `;
 }
 
 function schermataIniziale() {
@@ -158,7 +182,7 @@ function schermataIniziale() {
 
     container.innerHTML = `
         <h1 style="margin-bottom: 20px;">Pronti per l'esperimento?</h1>
-        <p style="font-size: 1.1rem; min-height: auto; margin-bottom: 40px;">
+        <p style="font-size: 1.8rem; min-height: auto; margin-bottom: 40px;">
             basato sull\'esperimento delle 36 domande per innamorarsi ideato dallo psicologo Arthur Aron
         </p>
         <button onclick="mostraDomanda()">Inizia il test</button>
