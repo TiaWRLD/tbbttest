@@ -38,7 +38,7 @@ const blocchi = [
         testo: "#f8f0fa",
         domande: [
             'Se dovessi morire oggi senza poter parlare con nessuno, cosa rimpiangeresti di non aver mai detto?',
-            'Hai la possi'
+            'Hai la possibilità di fare all\'altra persona una domanda a tua scelta al quale dovrà rispondere sinceramente'
         ],
         log: ['Mancano altre due domande prima della prova finale', 'Connessione in corso...', 'Caricamento domande finali'],
         //log: ['E adesso è il momento dell\'ultima prova...', 'il momento del silenzio'],
