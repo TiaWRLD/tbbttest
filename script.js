@@ -53,8 +53,8 @@ function mostraDomanda() {
     const blocco = blocchi[bloccoCorrente];
     if (domandaCorrente < blocco.domande.length) {
         container.innerHTML = `
-            <h2 style="font-size: 1.5rem; opacity: 0.7;">Livello ${bloccoCorrente + 1}</h2>
-            <p style="font-size: 2.5rem; padding: 0 20px;">${blocco.domande[domandaCorrente]}</p>
+            <h2 style="font-size: 1rem; opacity: 0.7;">Livello ${bloccoCorrente + 1}</h2>
+            <p style="font-size: 2rem; padding: 0 20px;">${blocco.domande[domandaCorrente]}</p>
             <button onclick="prossimaDomanda()">Proseguiamo</button>
         `;
     } else {
